@@ -22,5 +22,8 @@ namespace GymSharp.Data
         }
 
 
+        public DbSet<GymSharp.Models.Trainer> Trainer { get; set; }
+
+
     }
 }
