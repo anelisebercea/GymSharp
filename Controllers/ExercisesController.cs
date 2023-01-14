@@ -108,6 +108,12 @@ namespace GymSharp.Controllers
         // GET: Exercises/Create
         public IActionResult Create()
         {
+            var trainers = _context.Trainer.Select(x => new
+            {
+                x.Id,
+                FullName = x.FirstName + " " + x.LastName
+            });
+            ViewData["TrainerId"] = new SelectList(trainers, "Id", "FullName");
             return View();
         }
 
@@ -116,17 +122,17 @@ namespace GymSharp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ExerciseName,Trainer,Description,MuscleGroup,DifficultyLevel")] Exercise exercise)
+        public async Task<IActionResult> Create([Bind("ExerciseName,TrainerId,Description,MuscleGroup,DifficultyLevel")] Exercise exercise)
         {
             try
             {
 
                 if (ModelState.IsValid)
-            {
+                {
                 _context.Add(exercise);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+                }
 
             }
             catch (DbUpdateException)
@@ -134,6 +140,7 @@ namespace GymSharp.Controllers
 
                 ModelState.AddModelError("", "Unable to save changes. " + "Try again, and if the problem persists ");
             }
+            ViewData["TrainerId"] = new SelectList(_context.Set<Trainer>(), "Id", "Id", exercise.TrainerId);
 
             return View(exercise);
         }

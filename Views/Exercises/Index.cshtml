@@ -49,8 +49,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ExerciseName)
             </td>
+            
             <td>
-                @Html.DisplayFor(modelItem => item.Trainer)
+                @Html.DisplayFor(modelItem => item.Trainer.FirstName) @Html.DisplayFor(modelItem => item.Trainer.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)

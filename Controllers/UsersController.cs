@@ -52,8 +52,9 @@ namespace GymSharp.Controllers
         // POST: Users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
+        /*
         public async Task<IActionResult> Create(User user)
         {
             if (ModelState.IsValid)
@@ -64,6 +65,30 @@ namespace GymSharp.Controllers
             }
             return View(user);
         }
+        */
+
+        public async Task<IActionResult> Create([Bind("ID,Name,Email,BirthDate,Gender,Height")] User user)
+        {
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    _context.Add(user);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+            }
+            catch (DbUpdateException)
+            {
+
+                ModelState.AddModelError("", "Unable to save changes. " + "Try again, and if the problem persists ");
+            }
+
+            return View(user);
+        }
+
 
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)

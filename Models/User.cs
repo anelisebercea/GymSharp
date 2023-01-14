@@ -18,7 +18,7 @@ namespace GymSharp.Models
         public string Gender { get; set; }
         public int Height { get; set; }
 
-        public ICollection<Measurement> Measurements { get; set; }
+        public ICollection<Measurement>? Measurements { get; set; }
 
     }
 }
