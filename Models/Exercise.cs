@@ -19,5 +19,7 @@ namespace GymSharp.Models
 
 
         public ICollection<Measurement>? Measurements { get; set; }
+        public ICollection<WorkoutPlan> WorkoutPlans { get; set; }
+
     }
 }

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<GymSharp.Models.GymViewModels.MeasurementGroup>
+@{
+    ViewData["Title"] = "Progress Statistics";
+}
+<h2>Progress Statistics</h2>
+<table>
+    <tr>
+        <th>
+            Measurement Date
+        </th>
+        <th>
+            No. Exercises Done
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @item.ExerciseCount
+            </td>
+        </tr>
+    }
+</table>
